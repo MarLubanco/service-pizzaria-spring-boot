@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.pizza.controller;
 
+import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/pizzas")
@@ -33,8 +35,17 @@ public class PizzaController {
    * @return
    */
   @GetMapping("{id}")
-  public Pizza getPizza(@PathVariable Long id) {
+  public Pizza getPizza(@PathVariable Long id) throws PizzaNaoEncontradaException {
     return pizzaService.getPizza(id);
+  }
+
+  /**
+   * O método retorna todas as pizzas do banco de dados
+   * @return
+   */
+  @GetMapping
+  public List<Pizza> getAll() {
+    return pizzaService.getAll();
   }
 
 }

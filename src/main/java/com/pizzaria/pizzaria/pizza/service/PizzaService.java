@@ -1,9 +1,12 @@
 package com.pizzaria.pizzaria.pizza.service;
 
+import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PizzaService {
@@ -16,8 +19,8 @@ public class PizzaService {
    * @param id
    * @return
    */
-  public Pizza getPizza(Long id) {
-    return pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pizza não encontrada"));
+  public Pizza getPizza(Long id) throws PizzaNaoEncontradaException {
+    return pizzaRepository.findById(id).orElseThrow(() -> new PizzaNaoEncontradaException("Pizza não encontrada"));
   }
 
   /**
@@ -30,6 +33,14 @@ public class PizzaService {
     pizza.getSabor().prepararSabor(pizza);
     pizza.getPersonalizacaos().atualizarPizza(pizza);
     return pizzaRepository.save(pizza);
+  }
+
+  /**
+   * O método retorna todas as pizzas do banco de dados
+   * @return
+   */
+  public List<Pizza> getAll() {
+    return pizzaRepository.findAll();
   }
 
 }
