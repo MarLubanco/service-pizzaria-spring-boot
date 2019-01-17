@@ -1,12 +1,12 @@
 package com.pizzaria.pizzaria.pizzaTest;
 
 import com.pizzaria.pizzaria.PizzariaApplication;
+import com.pizzaria.pizzaria.pizza.enums.Personalizacao;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
-import com.pizzaria.pizzaria.pizza.model.Sabor;
-import com.pizzaria.pizzaria.pizza.model.Tamanho;
+import com.pizzaria.pizzaria.pizza.enums.Sabor;
+import com.pizzaria.pizzaria.pizza.enums.Tamanho;
 import com.pizzaria.pizzaria.pizza.service.PizzaService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,17 @@ public class PizzaTest {
           .tamanho(Tamanho.GRANDE)
           .sabor(Sabor.CALABRESA)
           .tempoPreparo(2.5)
+          .personalizacaos(Personalizacao.EXTRA_BACON)
           .build();
 
   Pizza pizzaPortuguesa = new Pizza().builder()
           .id(2L)
           .preco(60.5)
           .tamanho(Tamanho.GRANDE)
-          .sabor(Sabor.CALABRESA)
+          .sabor(Sabor.PORTUGUESA)
           .tempoPreparo(2.5)
+          .personalizacaos(Personalizacao.BORDA_RECHEADA)
           .build();
-
 
   @Test
   public void deveSalvarPizzaCalabresa() {
@@ -47,10 +48,24 @@ public class PizzaTest {
   }
 
   @Test
-  public void deveRecuperarDuasPizzas() {
-    pizzaService.save(pizzaPortuguesa);
+  public void deveSalvarPizzaCalabresaValidarPreco() {
     pizzaService.save(pizzaCalabresa);
+    Pizza pizzaCalabresaRecuperada = pizzaService.getPizza(1L);
+    Assert.assertTrue(pizzaCalabresaRecuperada.getPreco() == 103.5);
+  }
+
+  @Test
+  public void deveRecuperarDuasPizzas() {
+    pizzaService.save(pizzaCalabresa);
+    pizzaService.save(pizzaPortuguesa);
     List<Pizza> pizzaAll = pizzaService.getAll();
-    Assert.assertEquals(pizzaAll.size(), 2);
+    Assert.assertEquals(2, pizzaAll.size());
+  }
+
+  @Test
+  public void deveRecuperarPizzaComSeteMinutosMeioDePreparo() {
+    pizzaService.save(pizzaPortuguesa);
+    Pizza pizzaRecuperada = pizzaService.getPizza(1L);
+    Assert.assertTrue(37.5 == pizzaRecuperada.getTempoPreparo());
   }
 }
