@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.pizza.controller;
 
+import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.service.PizzaService;
 import javassist.NotFoundException;
@@ -44,16 +45,8 @@ public class PizzaController {
    * @return
    */
   @GetMapping("{id}")
-  public Pizza getPizza(@PathVariable Long id) {
+  public Pizza getPizza(@PathVariable Long id) throws PizzaNaoEncontradaException {
     return pizzaService.getPizza(id);
   }
 
-  /**
-   * Ao passar o id da pizza, a mesma deve ser deletada do banco de dados
-   * @param id
-   */
-  @DeleteMapping("{id}")
-  public void delete(@PathVariable Long id) {
-    pizzaService.delete(id);
-  }
 }

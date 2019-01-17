@@ -1,11 +1,15 @@
 package com.pizzaria.pizzaria.pizza.model;
 
+import com.pizzaria.pizzaria.pizza.enums.Personalizacao;
+import com.pizzaria.pizzaria.pizza.enums.Sabor;
+import com.pizzaria.pizzaria.pizza.enums.Tamanho;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -20,10 +24,12 @@ public class Pizza {
 
   @Column
   @Enumerated(EnumType.STRING)
+  @NotNull
   private Sabor sabor;
 
   @Column
   @Enumerated(EnumType.STRING)
+  @NotNull
   private Tamanho tamanho;
 
   @Column
@@ -31,4 +37,7 @@ public class Pizza {
 
   @Column
   private Double tempoPreparo;
+
+  @Column
+  private Personalizacao personalizacaos;
 }
