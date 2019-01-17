@@ -8,6 +8,7 @@ import com.pizzaria.pizzaria.pizza.enums.Sabor;
 import com.pizzaria.pizzaria.pizza.enums.Tamanho;
 import com.pizzaria.pizzaria.pizza.service.PizzaService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class PizzaTest {
   public void deveRecuperarDuasPizzas() {
     pizzaService.save(pizzaCalabresa);
     pizzaService.save(pizzaPortuguesa);
+    pizzaService.save(pizzaCalabresa);
     List<Pizza> pizzaAll = pizzaService.getAll();
     Assert.assertEquals(2, pizzaAll.size());
   }

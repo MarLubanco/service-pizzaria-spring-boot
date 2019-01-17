@@ -6,21 +6,11 @@ import com.pizzaria.pizzaria.pizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PizzaService {
 
   @Autowired
   private PizzaRepository pizzaRepository;
-
-  /**
-   * Deve retornar todas as pizzas do banco de dados
-   * @return
-   */
-  public List<Pizza> getAll() {
-    return pizzaRepository.findAll();
-  }
 
   /**
    * Ao passar o id da pizza como parâmetro deve retornar a pizza
