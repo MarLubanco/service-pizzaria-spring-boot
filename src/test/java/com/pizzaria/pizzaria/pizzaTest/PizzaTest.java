@@ -2,13 +2,12 @@ package com.pizzaria.pizzaria.pizzaTest;
 
 import com.pizzaria.pizzaria.PizzariaApplication;
 import com.pizzaria.pizzaria.pizza.enums.Personalizacao;
-import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
-import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.enums.Sabor;
 import com.pizzaria.pizzaria.pizza.enums.Tamanho;
+import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
+import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.service.PizzaService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,6 +6,8 @@ import com.pizzaria.pizzaria.pizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PizzaService {
 
@@ -31,6 +33,14 @@ public class PizzaService {
     pizza.getSabor().prepararSabor(pizza);
     pizza.getPersonalizacaos().atualizarPizza(pizza);
     return pizzaRepository.save(pizza);
+  }
+
+  /**
+   * O método retorna todas as pizzas do banco de dados
+   * @return
+   */
+  public List<Pizza> getAll() {
+    return pizzaRepository.findAll();
   }
 
 }

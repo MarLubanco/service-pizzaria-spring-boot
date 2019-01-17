@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/pizzas")
@@ -36,6 +37,15 @@ public class PizzaController {
   @GetMapping("{id}")
   public Pizza getPizza(@PathVariable Long id) throws PizzaNaoEncontradaException {
     return pizzaService.getPizza(id);
+  }
+
+  /**
+   * O método retorna todas as pizzas do banco de dados
+   * @return
+   */
+  @GetMapping
+  public List<Pizza> getAll() {
+    return pizzaService.getAll();
   }
 
 }
