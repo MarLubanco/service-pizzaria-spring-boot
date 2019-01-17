@@ -2,25 +2,14 @@ package com.pizzaria.pizzaria.pizza.service;
 
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.repository.PizzaRepository;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PizzaService {
 
   @Autowired
   private PizzaRepository pizzaRepository;
-
-  /**
-   * Deve retornar todas as pizzas do banco de dados
-   * @return
-   */
-  public List<Pizza> getAll() {
-    return pizzaRepository.findAll();
-  }
 
   /**
    * Ao passar o id da pizza como parâmetro deve retornar a pizza
@@ -37,15 +26,10 @@ public class PizzaService {
    * @return
    */
   public Pizza save(Pizza pizza) {
+    pizza.getTamanho().selecionarTamanhoPizza(pizza);
+    pizza.getSabor().prepararSabor(pizza);
+    pizza.getPersonalizacaos().atualizarPizza(pizza);
     return pizzaRepository.save(pizza);
-  }
-
-  /**
-   * Ao passar o id da pizza, a mesma deve ser deletada do banco de dados
-   * @param id
-   */
-  public void delete(Long id) {
-    pizzaRepository.deleteById(id);
   }
 
 }
