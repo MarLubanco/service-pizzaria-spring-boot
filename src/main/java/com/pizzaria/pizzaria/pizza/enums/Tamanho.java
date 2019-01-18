@@ -1,10 +1,10 @@
 package com.pizzaria.pizzaria.pizza.enums;
 
 import com.pizzaria.pizzaria.pizza.model.Pizza;
-import com.pizzaria.pizzaria.pizza.repository.TamanhoInterface;
+import com.pizzaria.pizzaria.pizza.model.EscolhaTamanho;
 
-public enum Tamanho implements TamanhoInterface {
-  PEQUENA("pequena:") {
+public enum Tamanho implements EscolhaTamanho {
+  PEQUENA("pequena") {
     @Override
     public void selecionarTamanhoPizza(Pizza pizza) {
       pizza.setPreco(pizza.getPreco() + 20.0);

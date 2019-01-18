@@ -1,11 +1,11 @@
 package com.pizzaria.pizzaria.pizza.enums;
 
+import com.pizzaria.pizzaria.pizza.model.EscolhaSabor;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
-import com.pizzaria.pizzaria.pizza.repository.SaborInterface;
 
 import static com.sun.activation.registries.LogSupport.log;
 
-public enum Sabor implements SaborInterface {
+public enum Sabor implements EscolhaSabor {
   CALABRESA("calabresa") {
     @Override
     public void prepararSabor(Pizza pizza) {

@@ -1,11 +1,10 @@
 package com.pizzaria.pizzaria.pizza.enums;
 
 import com.pizzaria.pizzaria.pizza.model.Pizza;
-import com.pizzaria.pizzaria.pizza.repository.PersonalizacaoInterface;
 
 import static com.sun.activation.registries.LogSupport.log;
 
-public enum Personalizacao implements PersonalizacaoInterface {
+public enum Personalizacao implements com.pizzaria.pizzaria.pizza.model.Personalizacao {
   EXTRA_BACON("Extra bacon") {
     @Override
     public void atualizarPizza(Pizza pizza) {

@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class PizzaTest {
   public void deveSalvarPizzaCalabresaValidarTempoPreparo() throws PizzaNaoEncontradaException {
     pizzaService.save(pizzaCalabresa);
     Pizza pizzaCalabresaRecuperada = pizzaService.getPizza(1L);
-    Assert.assertTrue(pizzaCalabresaRecuperada.getTempoPreparo() == 27.5);
+    Assert.assertTrue(27.5 == pizzaCalabresaRecuperada.getTempoPreparo());
   }
 
   @Test

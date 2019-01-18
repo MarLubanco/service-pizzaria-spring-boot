@@ -1,8 +1,8 @@
-package com.pizzaria.pizzaria.pizza.repository;
+package com.pizzaria.pizzaria.pizza.model;
 
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 
-public interface PersonalizacaoInterface {
+public interface Personalizacao {
 
   public void atualizarPizza(Pizza pizza);
 }
