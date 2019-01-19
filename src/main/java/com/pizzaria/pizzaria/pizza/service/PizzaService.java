@@ -2,45 +2,41 @@ package com.pizzaria.pizzaria.pizza.service;
 
 import com.pizzaria.pizzaria.pizza.exception.PizzaNaoEncontradaException;
 import com.pizzaria.pizzaria.pizza.model.Pizza;
-import com.pizzaria.pizzaria.pizza.repository.PizzaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class PizzaService {
-
-  @Autowired
-  private PizzaRepository pizzaRepository;
+public interface PizzaService {
 
   /**
    * Ao passar o id da pizza como parâmetro deve retornar a pizza
-   * @param id
+   *
+   * @param id id da pizza já existente
    * @return
    */
-  public Pizza getPizza(Long id) throws PizzaNaoEncontradaException {
-    return pizzaRepository.findById(id).orElseThrow(() -> new PizzaNaoEncontradaException("Pizza não encontrada"));
-  }
+   Pizza getById(Integer id) throws PizzaNaoEncontradaException;
 
   /**
    * Ao receber o objeto pizza irá persistir os dados no banco de dados
-   * @param pizza
+   *
+   * @param pizza Nova pizza
    * @return
    */
-  public Pizza save(Pizza pizza) {
-    pizza.getTamanho().selecionarTamanhoPizza(pizza);
-    pizza.getSabor().prepararSabor(pizza);
-    pizza.getPersonalizacaos().atualizarPizza(pizza);
-    return pizzaRepository.save(pizza);
-  }
+   Pizza save(Pizza pizza);
 
   /**
-   * O método retorna todas as pizzas do banco de dados
+   * Gera a pizza custumizada a partir das entradas de dados,
+   * gerando o tamanho, sabor e preço
+   *
+   * @param pizza as propriedades tamanho, sabor e personalização definem o tempo de preparo e preço
+   */
+   void gerarPedido(Pizza pizza);
+
+
+  /**
+   * Recupera todas as pizzas do banco de dados
+   *
    * @return
    */
-  public List<Pizza> getAll() {
-    return pizzaRepository.findAll();
-  }
+   List<Pizza> getAll();
 
 }

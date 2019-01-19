@@ -1,4 +1,4 @@
-package com.pizzaria.pizzaria.pizzaTest;
+package com.pizzaria.pizzaria.pizzaTest.serviceTest;
 
 import com.pizzaria.pizzaria.PizzariaApplication;
 import com.pizzaria.pizzaria.pizza.enums.Personalizacao;
@@ -13,19 +13,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PizzariaApplication.class)
-public class PizzaTest {
+public class PizzaServiceTest {
 
   @Autowired
   private PizzaService pizzaService;
 
   Pizza pizzaCalabresa = new Pizza().builder()
-          .id(1L)
+          .id(1)
           .preco(60.5)
           .tamanho(Tamanho.GRANDE)
           .sabor(Sabor.CALABRESA)
@@ -34,7 +33,7 @@ public class PizzaTest {
           .build();
 
   Pizza pizzaPortuguesa = new Pizza().builder()
-          .id(2L)
+          .id(2)
           .preco(60.5)
           .tamanho(Tamanho.GRANDE)
           .sabor(Sabor.PORTUGUESA)
@@ -42,32 +41,47 @@ public class PizzaTest {
           .personalizacaos(Personalizacao.BORDA_RECHEADA)
           .build();
 
+  Pizza pizzaPortuguesaBaconExtra = new Pizza().builder()
+          .id(3)
+          .preco(60.5)
+          .tamanho(Tamanho.GRANDE)
+          .sabor(Sabor.PORTUGUESA)
+          .tempoPreparo(2.5)
+          .personalizacaos(Personalizacao.EXTRA_BACON)
+          .build();
+
   @Test
   public void deveSalvarPizzaCalabresa() throws PizzaNaoEncontradaException {
     pizzaService.save(pizzaCalabresa);
-    Pizza pizzaCalabresaRecuperada = pizzaService.getPizza(1L);
+    Pizza pizzaCalabresaRecuperada = pizzaService.getById(1);
     Assert.assertEquals(pizzaCalabresaRecuperada, pizzaCalabresa);
   }
 
   @Test
   public void deveSalvarPizzaCalabresaValidarPreco() throws PizzaNaoEncontradaException {
     pizzaService.save(pizzaCalabresa);
-    Pizza pizzaCalabresaRecuperada = pizzaService.getPizza(1L);
+    Pizza pizzaCalabresaRecuperada = pizzaService.getById(1);
     Assert.assertTrue(pizzaCalabresaRecuperada.getPreco() == 103.5);
   }
 
   @Test
   public void deveSalvarPizzaCalabresaValidarTempoPreparo() throws PizzaNaoEncontradaException {
     pizzaService.save(pizzaCalabresa);
-    Pizza pizzaCalabresaRecuperada = pizzaService.getPizza(1L);
+    Pizza pizzaCalabresaRecuperada = pizzaService.getById(1);
     Assert.assertTrue(27.5 == pizzaCalabresaRecuperada.getTempoPreparo());
+  }
+
+  @Test
+  public void deveSalvarPizzaPortuguesaComBaconExtraValidarPreco() throws PizzaNaoEncontradaException {
+    pizzaService.save(pizzaPortuguesaBaconExtra);
+    Pizza pizzaCalabresaRecuperada = pizzaService.getById(2);
+    Assert.assertTrue(103.5 == pizzaCalabresaRecuperada.getPreco());
   }
 
   @Test
   public void deveRecuperarDuasPizzas() {
     pizzaService.save(pizzaCalabresa);
     pizzaService.save(pizzaPortuguesa);
-    pizzaService.save(pizzaCalabresa);
     List<Pizza> pizzaAll = pizzaService.getAll();
     Assert.assertEquals(2, pizzaAll.size());
   }
@@ -75,7 +89,7 @@ public class PizzaTest {
   @Test
   public void deveRecuperarPizzaComTrintaSeteMinutosMeioDePreparo() throws PizzaNaoEncontradaException {
     pizzaService.save(pizzaPortuguesa);
-    Pizza pizzaRecuperada = pizzaService.getPizza(1L);
+    Pizza pizzaRecuperada = pizzaService.getById(1);
     Assert.assertTrue(37.5 == pizzaRecuperada.getTempoPreparo());
   }
 }

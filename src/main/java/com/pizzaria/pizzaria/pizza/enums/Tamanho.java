@@ -2,7 +2,9 @@ package com.pizzaria.pizzaria.pizza.enums;
 
 import com.pizzaria.pizzaria.pizza.model.Pizza;
 import com.pizzaria.pizzaria.pizza.model.EscolhaTamanho;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public enum Tamanho implements EscolhaTamanho {
   PEQUENA("pequena") {
     @Override
